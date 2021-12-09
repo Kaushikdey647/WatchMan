@@ -28,6 +28,11 @@ pin.mode(STATE)
 pin.enable_reporting() -> allows reading inputs
 """
 print("comms on")
+
+led = uno.digital[13]
+
 while True:
-    uno.digital[13].write(1)
-    uno.digital[13].write(0)
+    led.write(1)
+    time.sleep(1)
+    led.write(0)
+    time.sleep(1)
