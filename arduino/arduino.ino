@@ -27,5 +27,5 @@ void loop() {
   digitalWrite(sonicTrig, LOW);//then turn it off
   tPeriod = pulseIn(sonicEcho, HIGH);//and check the time taken in reflection
   objDist = tPeriod * 0.017; //calculate object distance
-  Serial.println(objDist);
+  if(objDist<1000)Serial.println(objDist);
 }
