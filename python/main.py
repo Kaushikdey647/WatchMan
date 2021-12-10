@@ -1,12 +1,10 @@
 import numpy as np
 import cv2
-import os
 import serial
 import time
 from datetime import datetime
 
 fourcc = cv2.VideoWriter_fourcc(*'DIVX')
-cwd = os.getcwd()
 arduino = serial.Serial(port='COM3', baudrate=9600, timeout=.1)
 
 while True:
@@ -17,11 +15,8 @@ while True:
             print("INTRUSION DETECTED, Object Dist: ",dist)
             start = time.time()
             cap = cv2.VideoCapture(0)   #start capturing
-            d = datetime.now().strftime("%m_%d_%Y") #date, for foldername
-            t = datetime.now().strftime("%H_%M_%S")+".avi"  #time for filename
-            vFile = os.path.join(cwd,d,t)   #join paths
-            print(vFile)
-            out = cv2.VideoWriter(vFile, fourcc, 20.0, (640,480))   #define output file
+            t = datetime.now().strftime("%m_%d_%Y_%H_%M_%S")+".avi"  #time for filename
+            out = cv2.VideoWriter(t, fourcc, 20.0, (640,480))   #define output file
             while(cap.isOpened()):
                 ret, frame = cap.read()
                 if ret==True:
