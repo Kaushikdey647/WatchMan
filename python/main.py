@@ -21,10 +21,8 @@ while True:
                 str = arduino.readline() # keep reading, idk how else to discard values
                 ret, frame = cap.read()
                 if ret==True:
-                    # frame = cv2.flip(frame,0)
-                    # # write the flipped frame
                     out.write(frame)
-                    #cv2.imshow('frame',frame)
+                    cv2.imshow('frame',frame)
                     if time.time() - start > 30:
                         break
                 else:
