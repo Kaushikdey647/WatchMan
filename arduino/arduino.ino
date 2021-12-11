@@ -20,7 +20,8 @@ void setup() {
   pinMode(sonicEcho, INPUT); // Set echo as input mode
   digitalWrite(sonicTrig, LOW); // to deactivate the pulse
   delay(1000); //hold it for a sec
-  temp = 0;
+  temp = 100;
+  objDist = 100;
 }
 //doing the thing
 void loop() {
@@ -29,8 +30,8 @@ void loop() {
   digitalWrite(sonicTrig, LOW);//then turn it off
   tPeriod = pulseIn(sonicEcho, HIGH);//and check the time taken in reflection
   objDist = tPeriod * 0.017; //calculate object distance
-  objDist = (0.3*objDist + 0.7*temp);
-  if(objDist>1000)objDist = 1000;
+  objDist = (0.1*objDist + 0.9*temp);
+  if(objDist>200)objDist = temp;
   Serial.println(objDist);
   temp = objDist;
 }

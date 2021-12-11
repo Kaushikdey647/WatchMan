@@ -11,13 +11,14 @@ while True:
     str = arduino.readline().decode().strip() # format the input data
     if str: #if not null
         dist = float(str)   #convert for processing
-        if dist < 70:   #if less than 50
+        if dist < 50:   #if less than 50
             print("INTRUSION DETECTED, Object Dist: ",dist)
             start = time.time()
             cap = cv2.VideoCapture(0)   #start capturing
             t = datetime.now().strftime("%m_%d_%Y_%H_%M_%S")+".avi"  #time for filename
             out = cv2.VideoWriter(t, fourcc, 20.0, (640,480))   #define output file
             while(cap.isOpened()):
+                str = arduino.readline() # keep reading, idk how else to discard values
                 ret, frame = cap.read()
                 if ret==True:
                     # frame = cv2.flip(frame,0)
