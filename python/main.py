@@ -27,12 +27,13 @@ else:
 firstFrame = None
 
 
-start = time.time()
+curr = time.time()
 
 objend = time.time()
 
-detected = False
+detectedy = False
 
+detectedx = False
 
 while True:
     str = arduino.readline().decode().strip() # format the input data
@@ -41,12 +42,12 @@ while True:
         if dist < 50:   #if less than 50
             print("INTRUSION DETECTED, Object Dist: ",dist)
             #alll the times
-            start = time.time()
             cap = cv.VideoCapture(0)   #start capturing
             t = datetime.now().strftime("%m_%d_%Y_%H_%M_%S")+".avi"  #time for filename
             out = cv.VideoWriter(t, fourcc, 20.0, (640,480))   #define output file
             while(cap.isOpened()):
                 str = arduino.readline() # keep reading, idk how else to discard values
+                curr = time.time()
                 ret, frame = cap.read()
                 if ret==True:
                     frame = frame if args.get("video", None) is None else frame[1]
@@ -75,14 +76,14 @@ while True:
                     for c in cnts:
                         # if the contour is too small, ignore it
                         if cv.contourArea(c) < args["min_area"]:
-                            if(detected == True):
-                                detected = False
+                            if(detectedy == True):
+                                detectedx = False
                                 objend = time.time()
-                            if()
                             continue
                         (x, y, w, h) = cv.boundingRect(c)
                         cv.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
-                        detected = True
+                        detectedy = True
+                        detectedx = True
                         text = "Occupied"
                     # draw the text and timestamp on the frame
                     cv.putText(frame, "Room Status: {}".format(text), (10, 20), cv.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
@@ -93,6 +94,9 @@ while True:
                     cv.imshow("Frame Delta", frameDelta)
                     key = cv.waitKey(1) & 0xFF
                     out.write(frame)
+                    if(detectedy == True and detectedx == False and (time.time() - objend >30)):
+                        detectedy == False
+                        break
                     # if the `q` key is pressed, break from the lop
                     if key == ord("q"):
                         break
