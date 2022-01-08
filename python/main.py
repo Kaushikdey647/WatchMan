@@ -10,7 +10,7 @@ import datetime
 import argparse
 
 fourcc = cv.VideoWriter_fourcc(*'DIVX')
-arduino = serial.Serial(port='COM3', baudrate=9600, timeout=.1)
+arduino = serial.Serial(port='COM12', baudrate=9600, timeout=.1)
 
 ap = argparse.ArgumentParser()
 ap.add_argument("-v", "--video", help="/path")
@@ -36,7 +36,7 @@ detectedy = False
 detectedx = False
 
 while True:
-    str = arduino.readline().decode().strip() # format the input data
+    str = arduino.readline().decode('utf-8').strip() # format the input data
     if str: #if not null
         dist = float(str)   #convert for processing
         if dist < 50:   #if less than 50
