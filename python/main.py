@@ -26,12 +26,21 @@ else:
 
 firstFrame = None
 
+
+start = time.time()
+
+objend = time.time()
+
+detected = False
+
+
 while True:
     str = arduino.readline().decode().strip() # format the input data
     if str: #if not null
         dist = float(str)   #convert for processing
         if dist < 50:   #if less than 50
             print("INTRUSION DETECTED, Object Dist: ",dist)
+            #alll the times
             start = time.time()
             cap = cv.VideoCapture(0)   #start capturing
             t = datetime.now().strftime("%m_%d_%Y_%H_%M_%S")+".avi"  #time for filename
@@ -40,10 +49,53 @@ while True:
                 str = arduino.readline() # keep reading, idk how else to discard values
                 ret, frame = cap.read()
                 if ret==True:
+                    frame = frame if args.get("video", None) is None else frame[1]
+                    text = "Unoccupied"
+
+                    # resize the frame, convert it to grayscale, and blur it
+                    frame = imutils.resize(frame, width=500)
+                    gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
+                    gray = cv.GaussianBlur(gray, (21, 21), 0)
+
+                    # if the first frame is None, initialize it
+                    if firstFrame is None:
+                        firstFrame = gray
+                        continue
+
+                    # compute the absolute difference between the current frame and
+                    # first frame
+                    frameDelta = cv.absdiff(firstFrame, gray)
+                    thresh = cv.threshold(frameDelta, 25, 255, cv.THRESH_BINARY)[1]
+                    
+                    # dilate the thresholded image to fill in holes, then find contours on thresholded image
+                    thresh = cv.dilate(thresh, None, iterations=2)
+                    cnts = cv.findContours(thresh.copy(), cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE)
+                    cnts = imutils.grab_contours(cnts)
+
+                    for c in cnts:
+                        # if the contour is too small, ignore it
+                        if cv.contourArea(c) < args["min_area"]:
+                            if(detected == True):
+                                detected = False
+                                objend = time.time()
+                            if()
+                            continue
+                        (x, y, w, h) = cv.boundingRect(c)
+                        cv.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
+                        detected = True
+                        text = "Occupied"
+                    # draw the text and timestamp on the frame
+                    cv.putText(frame, "Room Status: {}".format(text), (10, 20), cv.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
+                    cv.putText(frame, datetime.datetime.now().strftime("%A %d %B %Y %I:%M:%S%p"), (10, frame.shape[0] - 10), cv.FONT_HERSHEY_SIMPLEX, 0.35, (0, 0, 255), 1)
+                    # show the frame and record if the user presses a key
+                    cv.imshow("Security Feed", frame)
+                    cv.imshow("Thresh", thresh)
+                    cv.imshow("Frame Delta", frameDelta)
+                    key = cv.waitKey(1) & 0xFF
                     out.write(frame)
-                    cv.imshow('frame',frame)
-                    # if time.time() - start > 30: 
-                        # break
+                    # if the `q` key is pressed, break from the lop
+                    if key == ord("q"):
+                        break
                 else:
                     break
             cap.release()
