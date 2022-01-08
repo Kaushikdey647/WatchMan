@@ -6,6 +6,7 @@
    4. ARDUINO UNO R3
    5. BREADBOARD
    6. JUMPER WIRES
+   7. HC-05 X 1
    Creator : Kaushik Dey(Kaushikdey647@gmail.com)
 */
 int sonicTrig = 7; // Sonic Transmitter (connect 7 to echo)
