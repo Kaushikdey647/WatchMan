@@ -1,10 +1,9 @@
 import serial
 import time
 
-arduino = serial.Serial(port='COM3', baudrate=9600, timeout=.1)
+arduino = serial.Serial(port='COM12', baudrate=9600, timeout=.1)
 while True:
-    str = arduino.readline().decode().strip()
+    str = arduino.readline().decode('utf-8').strip() # format the input data
     if str:
         dist = float(str)
-        #if dist < 50:
-        #     your code here
+        print("Object Dist: ",dist)
