@@ -1,12 +1,10 @@
 from imutils.video import VideoStream
-import numpy as np
 import cv2 as cv
 import serial
 import time
 from datetime import datetime
 import time
 import imutils
-import datetime
 import argparse
 
 fourcc = cv.VideoWriter_fourcc(*'DIVX')
@@ -91,7 +89,7 @@ while True:
                             text = "Occupied"
                         # draw the text and timestamp on the frame
                         cv.putText(frame, "Room Status: {}".format(text), (10, 20), cv.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
-                        cv.putText(frame, datetime.datetime.now().strftime("%A %d %B %Y %I:%M:%S%p"), (10, frame.shape[0] - 10), cv.FONT_HERSHEY_SIMPLEX, 0.35, (0, 0, 255), 1)
+                        cv.putText(frame, datetime.now().strftime("%A %d %B %Y %I:%M:%S%p"), (10, frame.shape[0] - 10), cv.FONT_HERSHEY_SIMPLEX, 0.35, (0, 0, 255), 1)
                         # show the frame and record if the user presses a key
                         cv.imshow("Security Feed", frame)
                         cv.imshow("Thresh", thresh)

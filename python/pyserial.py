@@ -7,8 +7,9 @@ while True:
     if str:
         try:
             dist = float(str)
-            print("Object Dist: ",dist)
+           # print("Object Dist: ",dist)
         except:
             print("error",str)
         finally:
-            print("eos")
+            #print("eos") 
+            continue
