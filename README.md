@@ -17,5 +17,5 @@ This is a repository to contain the code for the Intelligent Surveillance system
 - Enhanced security (while in the nearby proximity we can get feed of camera on any of the device which is connected to the bluetooth)
 - Better and Cost efficient way of imporving your House security.
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-#Hardware Arrangement
+# Hardware Arrangement
 Image - https://github.com/Kaushikdey647/WatchMan/blob/main/hardware.jpeg
