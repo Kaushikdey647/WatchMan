@@ -2,7 +2,7 @@
 
 An intelligent survelliance system that uses sonars and cv to save power and footage space
 
-![Setup Image]("https://github.com/Kaushikdey647/WatchMan/blob/main/assets/images/img3.jpeg")
+[![Setup Image]("https://github.com/Kaushikdey647/WatchMan/blob/main/assets/images/img3.jpeg")]("https://github.com/Kaushikdey647/WatchMan/")
 ## Introduction
 * The idea of the project is to create an economical system that fulfills the need of a smart alarm system.
 * The idea is to create a trip alarm system to capture video footage of intrusion once triggered.
