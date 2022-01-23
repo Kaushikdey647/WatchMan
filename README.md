@@ -1,6 +1,6 @@
 # WatchMan
 
-An intelligent survelliance system that uses sonars and cv to save power and footage space
+#### An intelligent survelliance system that uses sonars and cv to save power and footage space
 
 [![Setup Image](https://raw.githubusercontent.com/Kaushikdey647/WatchMan/main/assets/images/img3.jpeg)](https://github.com/Kaushikdey647/WatchMan/)
 ## Introduction
@@ -20,10 +20,3 @@ An intelligent survelliance system that uses sonars and cv to save power and foo
 3. As soon as any Intrusion is detected, i.e., the camera detects some activity [status changes from Unoccupied to Occupied], the webcam start recording.
 4. It'll keep recording until and unless the status changes back to Unoccuppied.
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-# Real Life Applications
-- Data and Storage saver.
-- Enhanced security (while in the nearby proximity we can get feed of camera on any of the device which is connected to the bluetooth)
-- Better and Cost efficient way of imporving your House security.
------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-# Hardware Arrangement
-Image - https://github.com/Kaushikdey647/WatchMan/blob/main/hardware.jpeg
