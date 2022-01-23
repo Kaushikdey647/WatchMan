@@ -8,7 +8,7 @@ import imutils
 import argparse
 
 fourcc = cv.VideoWriter_fourcc(*'DIVX')
-arduino = serial.Serial(port='COM12', baudrate=9600, timeout=.1)
+arduino = serial.Serial(port='COM6', baudrate=9600, timeout=.1)
 
 ap = argparse.ArgumentParser()
 ap.add_argument("-v", "--video", help="/path")
@@ -92,8 +92,8 @@ while True:
                         cv.putText(frame, datetime.now().strftime("%A %d %B %Y %I:%M:%S%p"), (10, frame.shape[0] - 10), cv.FONT_HERSHEY_SIMPLEX, 0.35, (0, 0, 255), 1)
                         # show the frame and record if the user presses a key
                         cv.imshow("Security Feed", frame)
-                        cv.imshow("Thresh", thresh)
-                        cv.imshow("Frame Delta", frameDelta)
+                        #cv.imshow("Thresh", thresh)
+                        #cv.imshow("Frame Delta", frameDelta)
                         key = cv.waitKey(1) & 0xFF
                         out.write(frame)
                         if(detectedy == True and detectedx == False and (time.time() - objend >30)):
