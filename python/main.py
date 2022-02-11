@@ -8,19 +8,19 @@ import imutils
 import argparse
 
 fourcc = cv.VideoWriter_fourcc(*'DIVX')
-arduino = serial.Serial(port='COM6', baudrate=9600, timeout=.1)
+arduino = serial.Serial(port='COM7', baudrate=9600, timeout=.1)
 
 ap = argparse.ArgumentParser()
 ap.add_argument("-v", "--video", help="/path")
 ap.add_argument("-a", "--min-area", type=int, default=100, help="minimum area size")
 args = vars(ap.parse_args())
 
-if args.get("video", None) is None:
-    vs = VideoStream(src=0).start()
-    time.sleep(2.0)
-
-else:
-    vs = cv.VideoCapture(args["video"])
+#if args.get("video", None) is None:
+#    vs = VideoStream(src=0).start()
+#    time.sleep(2.0)
+#
+#else:
+#    vs = cv.VideoCapture(args["video"])
 
 firstFrame = None
 
@@ -46,7 +46,7 @@ while True:
                 #alll the times
                 cap = cv.VideoCapture(0)   #start capturing
                 t = datetime.now().strftime("%m_%d_%Y_%H_%M_%S")+".avi"  #time for filename
-                out = cv.VideoWriter(t, fourcc, 20.0, (640,480))   #define output file
+                out = cv.VideoWriter(t, fourcc, 20.0, (500,375))   #define output file
                 while(cap.isOpened()):
                     str = arduino.readline() # keep reading, idk how else to discard values
                     curr = time.time()
