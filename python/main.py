@@ -15,15 +15,7 @@ ap.add_argument("-v", "--video", help="/path")
 ap.add_argument("-a", "--min-area", type=int, default=100, help="minimum area size")
 args = vars(ap.parse_args())
 
-#if args.get("video", None) is None:
-#    vs = VideoStream(src=0).start()
-#    time.sleep(2.0)
-#
-#else:
-#    vs = cv.VideoCapture(args["video"])
-
 firstFrame = None
-
 
 curr = time.time()
 
@@ -87,6 +79,7 @@ while True:
                             detectedy = True
                             detectedx = True
                             text = "Occupied"
+                            
                         # draw the text and timestamp on the frame
                         cv.putText(frame, "Room Status: {}".format(text), (10, 20), cv.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
                         cv.putText(frame, datetime.now().strftime("%A %d %B %Y %I:%M:%S%p"), (10, frame.shape[0] - 10), cv.FONT_HERSHEY_SIMPLEX, 0.35, (0, 0, 255), 1)
